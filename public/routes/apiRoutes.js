@@ -23,6 +23,16 @@ module.exports = function(app) {
             });
         }); 
         res.send("Scrape done")
-    });    
+    });
+    
+    app.get("/articles", function(req, res) {
+        Article.find({})
+          .then(function(dbArticle) {
+            res.json(dbArticle);
+          })
+          .catch(function(err) {
+            res.json(err);
+          });
+      });
 };
 
