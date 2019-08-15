@@ -13,6 +13,10 @@ var ArtSchema = new Schema({
     },
     image: {
         type: String
+    },
+    saved: {
+        type: Boolean,
+        default: false
     }
 })
 

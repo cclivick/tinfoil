@@ -34,5 +34,12 @@ module.exports = function(app) {
             res.json(err);
           });
       });
+
+    app.post("/articles/save/:id", function(req, res) {
+        Article.findOneAndUpdate({ _id : req.params.id }, { saved : true })
+        .then(function(dbArticle) {
+            res.json(dbArticle);
+        })
+    })
 };
 
