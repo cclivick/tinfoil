@@ -17,7 +17,11 @@ var ArtSchema = new Schema({
     saved: {
         type: Boolean,
         default: false
-    }
+    },
+    note: {
+        type: Schema.Types.ObjectId,
+        ref: "Note"
+      }
 })
 
 var Article = mongoose.model("Article", ArtSchema)

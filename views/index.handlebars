@@ -1,12 +1,31 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <form action="/scrape" method="GET">
-                <button type="submit">SCRAPE</button>
-            </form>
+<header class="mainHeader">
+    <div class="container headerCont">
+        <div class="row">
+            <div class="col-md-12" id="tinfoilRow">
+                <h2 class="tinfoil">Tinfoil</h2>
+            </div>
         </div>
-    </div>
-</div>
+        <div class="row" id="buttonRow">
+            <div class="col-md-4">
+                <form action="/scrape" method="GET">
+                        <button type="submit">SCRAPE</button>
+                    </form>
+                </div>
+            <div class="col-md-4">
+                <form action="/saved">
+                        <button type="submit">SAVED ARTICLES</button>
+                    </form>
+                </div> 
+            <div class="col-md-4">
+                <form action="/empty">
+                            <button type="submit">PURGE ARTICLES</button>
+                    </form>
+                </div> 
+            </div>         
+        </div>
+    </header>
+
+
 
 <div class="container" id="articles">
 
