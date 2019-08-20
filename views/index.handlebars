@@ -6,19 +6,19 @@
             </div>
         </div>
         <div class="row" id="buttonRow">
-            <div class="col-md-4">
-                <form action="/scrape" method="GET">
-                        <button type="submit">SCRAPE</button>
+            <div class="col-md-4 buttonDiv">
+                    <form>
+                        <button type="submit" class="indexButton" id="scrButton">SCRAPE ARTICLES</button>
                     </form>
                 </div>
-            <div class="col-md-4">
+            <div class="col-md-4 buttonDiv">
                 <form action="/saved">
-                        <button type="submit">SAVED ARTICLES</button>
+                        <button type="submit" class="indexButton">SAVED ARTICLES</button>
                     </form>
                 </div> 
-            <div class="col-md-4">
-                <form action="/empty">
-                            <button type="submit">PURGE ARTICLES</button>
+            <div class="col-md-4 buttonDiv">
+                <form action="/purge" method="POST">
+                        <button type="submit" class="indexButton">PURGE ARTICLES</button>
                     </form>
                 </div> 
             </div>         
@@ -28,5 +28,10 @@
 
 
 <div class="container" id="articles">
+    <div class="row">
+        <div class="col-md-12" id="newArtHeader">
+            <h4 id="scrHeading">Recently Scraped Articles</h4>
+        </div>
+    </div>
 
 </div>

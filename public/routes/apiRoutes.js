@@ -25,7 +25,7 @@ module.exports = function(app) {
                 })
             });
         }); 
-        res.send("Scrape done")
+        res.end()
     });
     
     //ROUTE FOR GRABBING ARTICLES FROM ARTICLE COLLECTION
@@ -47,6 +47,15 @@ module.exports = function(app) {
         })
     })
 
+    //ROUTE FOR PURGING ALL UNSAVED ARTICLES FROM ARTICLES COLLECTION
+    app.post("/purge", function(req,res) {
+    Article.deleteMany({ saved : false })
+    .then(function(dbArticle) {
+        res.json(dbArticle);
+        })
+    })
+
+    //ROUTE FOR DELETING SAVED ARTICLES
     app.post("/articles/unsave/:id", function(req, res) {
     Article.findOneAndDelete({ _id : req.params.id })
     .then(function(dbArticle) {

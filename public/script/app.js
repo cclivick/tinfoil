@@ -20,6 +20,16 @@ $.getJSON("/articles", function(data) {
 
 var savedArticleID;
 
+$(document).on("click", "#scrButton", function() {
+    $.ajax({
+        method: "GET",
+        url:"/scrape",
+        success: function(data) {
+            window.location.reload();
+        }
+    })
+})
+
 //POST REQUEST TO SAVE ARTICLE UPON CLICKING SAVBUTTON
 $(document).on("click", ".savButton", function() {
     savedArticleID = $(this).attr('data-id');
@@ -31,6 +41,7 @@ $(document).on("click", ".savButton", function() {
     })
 })
 
+//POST REQUEST TO UNSAVE SAVED ARTICLES
 $(document).on("click", ".unSaveButton", function() {
     savedArticleID = $(this).attr('data-id');
     $.ajax({
