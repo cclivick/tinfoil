@@ -1,13 +1,19 @@
 console.log("Loaded")
 
-//RENDER SCRAPED ARTICLES IN CARDS TO INDEX PAGE 
+$(window).on("load", function() {
+    renderArticles();
+})
+
+//RENDER SCRAPED ARTICLES IN CARDS TO INDEX PAGE
+function renderArticles() {
 $.getJSON("/articles", function(data) {
     for( var i = 0 ; i < data.length ; i++ ) {
         if(data[i].saved === false) {
             $("#articles").append('<div class="row"><div class="card mb-3 artCard" style="max-width: 100%; min-width: 100%;"><div class="row no-gutters"><div class="col-md-4 picCol"><img src="' + data[i].image + '" class="card-img artImg" alt="..."></div><div class="col-md-8"><div class="card-body"><h5 class="card-title artTitle">' + data[i].title + '</h5><a class="artLink" href="' + data[i].link + '">Link to Metal Injection Article</a><br><br><a href="#" class="btn btn-success savButton" data-id="' + data[i]._id + '">Save Article</a></div></div></div></div>');
         }
     }
-});
+})
+}
 
 //RENDER SAVED ARTICLES IN CARDS TO SAVED PAGE
 $.getJSON("/articles", function(data) {
@@ -20,12 +26,26 @@ $.getJSON("/articles", function(data) {
 
 var savedArticleID;
 
-$(document).on("click", "#scrButton", function() {
+$(document).on("click", "#scrButton", function(event) {
+    event.preventDefault();
     $.ajax({
         method: "GET",
         url:"/scrape",
         success: function(data) {
-            window.location.reload();
+            console.log("success");
+            location.reload();
+        }
+    })
+})
+
+$(document).on("click", "#purButton", function(event) {
+    event.preventDefault();
+    $.ajax({
+        method: "POST",
+        url:"/purge",
+        success: function(data) {
+            console.log("success");
+            location.reload();
         }
     })
 })

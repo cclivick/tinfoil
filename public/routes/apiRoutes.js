@@ -24,8 +24,9 @@ module.exports = function(app) {
                     console.log(err);
                 })
             });
-        }); 
-        res.end()
+        }).then(function() {
+            res.end();  
+        })
     });
     
     //ROUTE FOR GRABBING ARTICLES FROM ARTICLE COLLECTION
@@ -51,7 +52,10 @@ module.exports = function(app) {
     app.post("/purge", function(req,res) {
     Article.deleteMany({ saved : false })
     .then(function(dbArticle) {
-        res.json(dbArticle);
+        console.log(dbArticle);
+        res.end();
+        }).catch(function(err) {
+            console.log(err)
         })
     })
 
