@@ -3,7 +3,6 @@ const axios = require("axios");
 
 var Article = require("../../models/Article.js")
 var Note = require("../../models/Note.js")
-var document = require("../../views")
 
 console.log("Grabbing articles from Metal Injection's homepage")
 
@@ -93,6 +92,18 @@ module.exports = function(app) {
         })
         .catch(function (err) {
             res.json(err)
+        })
+    })
+
+    //ROUTE FOR DELETING AN EXISTING NOTE
+    app.post("/articles/delnote/:id", function(req, res) {
+        Article.findOne({ _id : req.params.id })
+        .then(function(dbArticle) {
+            let noteToDelete = dbArticle.note;
+            return Note.findByIdAndDelete({ _id : noteToDelete })
+        })
+        .then(function(dbNote) {
+            res.json(dbNote);
         })
     })
 };

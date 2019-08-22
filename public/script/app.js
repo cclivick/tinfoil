@@ -26,6 +26,7 @@ $.getJSON("/articles", function(data) {
 
 var savedArticleID;
 
+//GET REQUEST TO SCRAPE ARTICLES AND THEN RELOAD INDEX PAGE
 $(document).on("click", "#scrButton", function(event) {
     event.preventDefault();
     $.ajax({
@@ -38,6 +39,7 @@ $(document).on("click", "#scrButton", function(event) {
     })
 })
 
+//POST REQUEST TO DELETE ALL SAVED ARTICLES AND RELOAD INDEX PAGE
 $(document).on("click", "#purButton", function(event) {
     event.preventDefault();
     $.ajax({
@@ -58,6 +60,7 @@ $(document).on("click", ".savButton", function() {
         url: "/articles/save/" + savedArticleID
     }).then(function(data) {
         console.log(data);
+        location.reload();
     })
 })
 
@@ -82,8 +85,23 @@ $(document).on("click", ".notesButton", function() {
     }).then(function(data) {
         if(data) {
             $("#notesMessage").empty();
-            $("#currNote").append(data.body);
+            $("#currNotes").html("");
+            $("#currNotes").append("<li class='savedNotes'>" + data.body + "<button class='delNote' id="+ savedArticleID + ">X</button></li>");
         }
+    })
+})
+
+//POST REQUEST TO DELETE A SINGLE NOTE FROM AN ARTICLE
+$(document).on("click", ".delNote", function() {
+    savedNoteID = $(this).attr('id');
+    console.log(savedNoteID);
+    $.ajax({
+        method: "POST",
+        url: "/articles/delnote/" + savedNoteID,
+        success: function() {            
+            console.log("note deleted")
+            location.reload();
+        }        
     })
 })
 

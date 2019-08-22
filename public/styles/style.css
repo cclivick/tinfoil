@@ -144,5 +144,16 @@ body{
     font-family:  'Metal Mania', cursive;
     font-size: 24px;
 }
+.delNote{
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: 800;
+    background-color: red;
+    color: white;
+}
+.savedNotes{
+    font-size: 24px;
+    font-weight: bold;
+}
 
 
