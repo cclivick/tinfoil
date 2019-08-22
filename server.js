@@ -4,9 +4,7 @@ var exphbs = require("express-handlebars");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
-//Require all models
-//var db = require("./models");
-
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/tinfoil";
 //Set up port for localhost
 var PORT = 8080;
 
@@ -25,7 +23,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 //Connect to MongoDB database
-mongoose.connect("mongodb://localhost/tinfoil", { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 //Require in routes with express
 require("./public/routes/apiRoutes")(app);
