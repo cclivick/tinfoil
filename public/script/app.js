@@ -72,6 +72,7 @@ $(document).on("click", ".unSaveButton", function() {
         url: "/articles/unsave/" + savedArticleID
     }).then(function(data) {
         console.log(data);
+        location.reload();
     })
 })
 
