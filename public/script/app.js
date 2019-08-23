@@ -87,18 +87,21 @@ $(document).on("click", ".notesButton", function() {
         if(data) {
             $("#notesMessage").empty();
             $("#currNotes").html("");
-            $("#currNotes").append("<li class='savedNotes'>" + data.body + "<button class='delNote' id="+ savedArticleID + ">X</button></li>");
+            for(var i = 0 ; i < data.length ; i++ ) {
+                $("#currNotes").append("<li class='savedNotes'>" + data[i].body + "<button class='delNote' id="+ savedArticleID + " data-id=" + i + ">X</button></li>");   
+            }
         }
     })
 })
 
 //POST REQUEST TO DELETE A SINGLE NOTE FROM AN ARTICLE
 $(document).on("click", ".delNote", function() {
-    savedNoteID = $(this).attr('id');
-    console.log(savedNoteID);
+    savedArticleID = $(this).attr('id');
+    noteIndex = $(this).attr('data-id');
+    console.log(savedArticleID);
     $.ajax({
         method: "POST",
-        url: "/articles/delnote/" + savedNoteID,
+        url: "/articles/delnote/" + savedArticleID + "/" + noteIndex,
         success: function() {            
             console.log("note deleted")
             location.reload();

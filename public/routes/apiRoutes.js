@@ -85,7 +85,7 @@ module.exports = function(app) {
     app.post("/articles/savenote/:id", function(req, res) {
         Note.create(req.body)
         .then(function(dbNote) {
-            return Article.findOneAndUpdate({ _id : req.params.id }, { note : dbNote._id }, { new : true })
+            return Article.findOneAndUpdate({ _id : req.params.id }, { $push : { note : dbNote._id }}, { new : true })
         })
         .then(function(dbArticle) {
             res.json(dbArticle)
@@ -96,10 +96,11 @@ module.exports = function(app) {
     })
 
     //ROUTE FOR DELETING AN EXISTING NOTE
-    app.post("/articles/delnote/:id", function(req, res) {
+    app.post("/articles/delnote/:id/:index", function(req, res) {
+        let noteIndex = req.params.index;
         Article.findOne({ _id : req.params.id })
         .then(function(dbArticle) {
-            let noteToDelete = dbArticle.note;
+            let noteToDelete = dbArticle.note[noteIndex]._id;
             return Note.findByIdAndDelete({ _id : noteToDelete })
         })
         .then(function(dbNote) {
