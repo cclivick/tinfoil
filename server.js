@@ -6,7 +6,7 @@ var mongoose = require("mongoose");
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/tinfoil";
 //Set up port for localhost
-var PORT = 8080;
+var PORT = process.env.PORT || 8080;
 
 //Initialize Express
 var app = express();
