@@ -33,7 +33,7 @@ $(document).on("click", "#scrButton", function(event) {
         method: "GET",
         url:"/scrape",
         success: function(data) {
-            console.log("success");
+            //console.log("success");
             location.reload();
         }
     })
@@ -46,7 +46,7 @@ $(document).on("click", "#purButton", function(event) {
         method: "POST",
         url:"/purge",
         success: function(data) {
-            console.log("success");
+            //console.log("success");
             location.reload();
         }
     })
@@ -59,7 +59,7 @@ $(document).on("click", ".savButton", function() {
         method: "POST",
         url: "/articles/save/" + savedArticleID
     }).then(function(data) {
-        console.log(data);
+        //console.log(data);
         location.reload();
     })
 })
@@ -71,7 +71,7 @@ $(document).on("click", ".unSaveButton", function() {
         method: "POST",
         url: "/articles/unsave/" + savedArticleID
     }).then(function(data) {
-        console.log(data);
+        //console.log(data);
         location.reload();
     })
 })
@@ -88,7 +88,7 @@ $(document).on("click", ".notesButton", function() {
             $("#notesMessage").empty();
             $("#currNotes").html("");
             for(var i = 0 ; i < data.length ; i++ ) {
-                $("#currNotes").append("<li class='savedNotes'>" + data[i].body + "<button class='delNote' id="+ savedArticleID + " data-id=" + i + ">X</button></li>");   
+                $("#currNotes").append("<li class='savedNotes'>" + data[i].body + "<button class='delNote' id="+ savedArticleID + " data-id=" + data[i]._id + ">X</button></li>");   
             }
         }
     })
@@ -97,13 +97,13 @@ $(document).on("click", ".notesButton", function() {
 //POST REQUEST TO DELETE A SINGLE NOTE FROM AN ARTICLE
 $(document).on("click", ".delNote", function() {
     savedArticleID = $(this).attr('id');
-    noteIndex = $(this).attr('data-id');
-    console.log(savedArticleID);
+    noteID = $(this).attr('data-id');
+    //console.log(savedArticleID);
     $.ajax({
         method: "POST",
-        url: "/articles/delnote/" + savedArticleID + "/" + noteIndex,
+        url: "/articles/delnote/" + savedArticleID + "/" + noteID,
         success: function() {            
-            console.log("note deleted")
+            //console.log("note deleted")
             location.reload();
         }        
     })

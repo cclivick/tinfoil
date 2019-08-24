@@ -18,7 +18,7 @@ module.exports = function(app) {
                 result.image = $(element).find("img").attr("src");
                 Article.create(result)
                 .then(function(dbArticle) {
-                    console.log(dbArticle);
+                    //console.log(dbArticle);
                 }).catch(function(err) {
                     console.log(err);
                 })
@@ -51,7 +51,7 @@ module.exports = function(app) {
     app.post("/purge", function(req,res) {
     Article.deleteMany({ saved : false })
     .then(function(dbArticle) {
-        console.log(dbArticle);
+        //console.log(dbArticle);
         res.end();
         }).catch(function(err) {
             console.log(err)
@@ -71,7 +71,7 @@ module.exports = function(app) {
         Article.findOne({ _id : req.params.id })
         .populate("note")
         .then(function(dbArticle) {
-            console.log(dbArticle);
+            //console.log(dbArticle);
             if(dbArticle.note) {
                 res.json(dbArticle.note);
             }
@@ -96,15 +96,14 @@ module.exports = function(app) {
     })
 
     //ROUTE FOR DELETING AN EXISTING NOTE
-    app.post("/articles/delnote/:id/:index", function(req, res) {
-        let noteIndex = req.params.index;
-        Article.findOne({ _id : req.params.id })
-        .then(function(dbArticle) {
-            let noteToDelete = dbArticle.note[noteIndex]._id;
-            return Note.findByIdAndDelete({ _id : noteToDelete })
-        })
+    app.post("/articles/delnote/:id/:note", function(req, res) {
+        let noteID = req.params.note;
+        Note.findOneAndDelete({ _id : noteID })
         .then(function(dbNote) {
             res.json(dbNote);
+        })
+        .catch(function(err) {
+            res.json(err);
         })
     })
 };
